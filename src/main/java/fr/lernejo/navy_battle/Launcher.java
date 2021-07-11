@@ -10,11 +10,10 @@ public class Launcher {
             System.err.println("No Port");
             System.exit(-1);
         }
-        else if (args.length >  1)
+        else if (args.length ==  1)
         {
-            new SecondServer().Server(Integer.parseInt(args[0]),args[1]);
+            new StartServer(Integer.parseInt(args[0]));
         }
-        new StartServer(Integer.parseInt(args[0]));
-
+        new SecondServer().Server(Integer.parseInt(args[0]),args[1]);
     }
 }

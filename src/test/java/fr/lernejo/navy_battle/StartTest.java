@@ -35,7 +35,7 @@ class StartTest {
 
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("http://localhost:9876/api/game/start"))
-            .POST(HttpRequest.BodyPublishers.ofString("{\"id\":\"1\", \"url\":\"http://localhost:"+ 9876 + "\"message\":\"Enjoy the Game !!!\"}"))
+            .POST(HttpRequest.BodyPublishers.ofString("{\"id\":\"1\", \"url\":\"http://localhost:" + 9876 + "\", \"message\":\"Hey adversary\"}"))
             .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
