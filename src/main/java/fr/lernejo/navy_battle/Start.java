@@ -33,18 +33,19 @@ public class Start implements HttpHandler {
             JsonStart requestJson = ParseResponse(exchange);
             if (requestJson == null ||  requestJson.id.equals("\"\"") || requestJson.url.equals("\"\"") || requestJson.message.equals("\"\""))
             {
-                exchange.sendResponseHeaders(400, "Bad JSON".getBytes().length);
-                try (OutputStream os = exchange.getResponseBody()) {
-                    os.write( "Bad JSON".getBytes());
-                }
+                SendR(exchange,400,"Bad JSON".getBytes());
             }
             else
             {
-                exchange.sendResponseHeaders(202,"{\"id\":\"1\", \"url\":\"http://localhost:\", \"message\":\"Enjoy the Game !!!\"}".getBytes().length);
-                try (OutputStream os = exchange.getResponseBody()) {
-                    os.write("{\"id\":\"1\", \"url\":\"http://localhost:\", \"message\":\"Enjoy the Game !!!\"}".getBytes());
-                }
+                SendR(exchange,202,"{\"id\":\"1\", \"url\":\"http://localhost:\", \"message\":\"Enjoy the Game !!!\"}".getBytes());
             }
+        }
+    }
+
+    private void SendR(HttpExchange exchange, int rCode, byte[] response) throws IOException {
+        exchange.sendResponseHeaders(rCode, response.length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(response);
         }
     }
 
