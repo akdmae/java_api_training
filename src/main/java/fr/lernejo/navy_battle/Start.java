@@ -22,10 +22,7 @@ public class Start implements HttpHandler {
         //NOT FOUND PAGE
         if (!exchange.getRequestMethod().equals("POST"))
         {
-            exchange.sendResponseHeaders(404,"404 Not Found".getBytes().length);
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write("404 Not Found".getBytes());
-            }
+            NoFoundR(exchange);
         }
         //SEND RESPONSE
         else
@@ -46,6 +43,12 @@ public class Start implements HttpHandler {
         exchange.sendResponseHeaders(rCode, response.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(response);
+        }
+    }
+
+    private void NoFoundR(HttpExchange exchange) throws IOException {  exchange.sendResponseHeaders(404, "NULL".getBytes().length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write("NULL".getBytes());
         }
     }
 
