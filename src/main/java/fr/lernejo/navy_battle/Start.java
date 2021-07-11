@@ -22,21 +22,15 @@ public class Start implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         //NOT FOUND PAGE
         if (!exchange.getRequestMethod().equals("POST"))
-        {
-            NoFoundR(exchange);
-        }
+        { NoFoundR(exchange); }
         //SEND RESPONSE
         else
         {
             JsonStart requestJson = ParseResponse(exchange);
             if (requestJson == null ||  requestJson.id.equals("\"\"") || requestJson.url.equals("\"\"") || requestJson.message.equals("\"\""))
-            {
-                SendR(exchange,400,"Bad JSON");
-            }
+            { SendR(exchange,400,"Bad JSON"); }
             else
-            {
-                SendR(exchange,202,"{\n\t\"id\":\"" + UUID.randomUUID() + "\",\n\t\"url\":\"" + this.URL + "\",\n\t\"message\":\"May the best code win\"\n}");
-            }
+            {SendR(exchange,202,"{\n\t\"id\":\"" + UUID.randomUUID() + "\",\n\t\"url\":\"" + this.URL + "\",\n\t\"message\":\"May the best code win\"\n}"); }
         }
     }
 
