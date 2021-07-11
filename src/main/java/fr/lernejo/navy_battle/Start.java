@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.UUID;
 
 public class Start implements HttpHandler {
 
@@ -30,19 +31,19 @@ public class Start implements HttpHandler {
             JsonStart requestJson = ParseResponse(exchange);
             if (requestJson == null ||  requestJson.id.equals("\"\"") || requestJson.url.equals("\"\"") || requestJson.message.equals("\"\""))
             {
-                SendR(exchange,400,"Bad JSON".getBytes());
+                SendR(exchange,400,"Bad JSON");
             }
             else
             {
-                SendR(exchange,202,"{\"id\":\"1\", \"url\":\"http://localhost:\", \"message\":\"Enjoy the Game !!!\"}".getBytes());
+                SendR(exchange,202,"{\n\t\"id\":\"" + UUID.randomUUID() + "\",\n\t\"url\":\"" + this.URL + "\",\n\t\"message\":\"May the best code win\"\n}");
             }
         }
     }
 
-    private void SendR(HttpExchange exchange, int rCode, byte[] response) throws IOException {
-        exchange.sendResponseHeaders(rCode, response.length);
+    private void SendR(HttpExchange exchange, int rCode, String response) throws IOException {
+        exchange.sendResponseHeaders(rCode, response.length());
         try (OutputStream os = exchange.getResponseBody()) {
-            os.write(response);
+            os.write(response.getBytes());
         }
     }
 
